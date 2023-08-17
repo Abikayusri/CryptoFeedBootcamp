@@ -35,8 +35,6 @@ fun CryptoFeedRoute(
 ) {
     val cryptoFeedUiState by viewModel.cryptoFeedUiState.collectAsStateWithLifecycle()
 
-    Log.d("loadCryptoFeed", "$cryptoFeedUiState")
-
     CryptoFeedScreen(
         cryptoFeedUiState = cryptoFeedUiState,
         onRefreshCryptoFeed = viewModel::loadCryptoFeed,

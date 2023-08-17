@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 data class CryptoFeedEntity(
     @PrimaryKey
     val id: String,
-    val name: String,
-    val fullName: String,
-    val imageUrl: String,
-    val price: Double,
-    val changePctDay: Float
+    val name: String?,
+    val fullName: String?,
+    val imageUrl: String?,
+    val price: Double?,
+    val changePctDay: Float?
 )

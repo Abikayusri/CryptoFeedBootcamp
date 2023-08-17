@@ -9,7 +9,7 @@ class RemoteCryptoFeedLoaderFactory {
         fun createRemoteCryptoFeedLoader(): CryptoFeedLoader {
             return RemoteCryptoFeedLoader(
                 CryptoFeedHttpClientFactory.createCryptoFeedHttpClient(),
-//                CryptoFeedLocalFactory.createCryptoFeedLocal()
+                CryptoFeedLocalFactory.createCryptoFeedLocal()
             )
         }
     }

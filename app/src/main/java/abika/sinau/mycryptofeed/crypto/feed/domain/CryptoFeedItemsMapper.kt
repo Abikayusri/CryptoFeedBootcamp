@@ -16,8 +16,8 @@ class CryptoFeedItemsMapper {
                     ),
                     raw = RawItem(
                         usd = UsdItem(
-                            it.remoteRaw.usd.price ?: 0.0,
-                            it.remoteRaw.usd.changePctDay ?: 0F
+                            price = it.remoteRaw.usd.price ?: 0.0,
+                            changePctDay = it.remoteRaw.usd.changePctDay ?: 0F
                         )
                     )
                 )
@@ -42,14 +42,14 @@ class CryptoFeedItemsMapper {
                 CryptoFeedItem(
                     coinInfo = CoinInfoItem(
                         it.id,
-                        it.name,
-                        it.fullName,
-                        it.imageUrl
+                        it.name.orEmpty(),
+                        it.fullName.orEmpty(),
+                        it.imageUrl.orEmpty()
                     ),
                     raw = RawItem(
                         usd = UsdItem(
-                            it.price,
-                            it.changePctDay
+                            price = it.price ?: 0.0,
+                            changePctDay = it.changePctDay ?: 0F
                         )
                     )
                 )

@@ -20,6 +20,8 @@ class LocalCryptoFeedLoader constructor(
 
                 if (data.isNotEmpty()) {
                     emit(CryptoFeedResult.Success(CryptoFeedItemsMapper.mapEntityToDomain(data)))
+                } else {
+                    emit(CryptoFeedResult.Failure(Connectivity()))
                 }
             } catch (e: Exception) {
                 emit(CryptoFeedResult.Failure(Connectivity()))

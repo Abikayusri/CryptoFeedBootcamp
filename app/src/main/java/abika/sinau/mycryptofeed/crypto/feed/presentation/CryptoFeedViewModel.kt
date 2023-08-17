@@ -1,11 +1,5 @@
 package abika.sinau.mycryptofeed.crypto.feed.presentation
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedItem
 import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedLoader
 import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedResult
@@ -14,6 +8,11 @@ import abika.sinau.mycryptofeed.crypto.feed.http.usecases.InvalidData
 import abika.sinau.mycryptofeed.factories.composite.CryptoFeedLoaderFactory
 import abika.sinau.mycryptofeed.factories.local.LocalCryptoFeedLoaderFactory
 import abika.sinau.mycryptofeed.factories.remote.RemoteCryptoFeedLoaderFactory
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -83,7 +82,6 @@ class CryptoFeedViewModel constructor(
     fun loadCryptoFeed() {
         viewModelScope.launch {
             cryptoFeedLoader.load().collect { result ->
-                Log.d("loadCryptoFeed", "$result")
                 viewModelState.update {
                     when (result) {
                         is CryptoFeedResult.Success -> it.copy(
@@ -109,15 +107,16 @@ class CryptoFeedViewModel constructor(
         val FACTORY: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 CryptoFeedViewModel(
-                    RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
+                    // TODO: If not use composite
+//                    RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
 
-//                    CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
-//                        primary = CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
-//                            primary = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
-//                            secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
-//                        ),
-//                        secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
-//                    )
+                    CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
+                        primary = CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
+                            primary = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
+                            secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+                        ),
+                        secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+                    )
                 )
             }
         }

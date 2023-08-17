@@ -3,6 +3,7 @@ package abika.sinau.mycryptofeed.crypto.feed.composite
 import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedLoader
 import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedResult
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 
 class CryptoFeedLoaderComposite(
@@ -16,7 +17,7 @@ class CryptoFeedLoaderComposite(
                     primary.load().collect {
                         when (it) {
                             is CryptoFeedResult.Success -> emit(it)
-                            is CryptoFeedResult.Failure -> emit(it)
+                            is CryptoFeedResult.Failure -> emit(secondary.load().first())
                         }
                     }
                 } catch (e: Exception) {

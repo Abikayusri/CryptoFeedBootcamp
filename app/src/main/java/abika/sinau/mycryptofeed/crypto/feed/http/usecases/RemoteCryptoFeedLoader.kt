@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.flow
 
 class RemoteCryptoFeedLoader constructor(
     private val cryptoFeedHttpClient: CryptoFeedHttpClient,
-//    private val cryptoFeedDao: CryptoFeedDao
+    private val cryptoFeedDao: CryptoFeedDao
 ) :
     CryptoFeedLoader {
     override fun load(): Flow<CryptoFeedResult> = flow {
@@ -25,21 +25,19 @@ class RemoteCryptoFeedLoader constructor(
                     if (cryptoFeed.isNotEmpty()) {
                         emit(CryptoFeedResult.Success(CryptoFeedItemsMapper.map(cryptoFeed)))
 
-//                        cryptoFeedDao.insertAll(CryptoFeedItemsMapper.mapRemoteToEntity(cryptoFeed))
+                        cryptoFeedDao.insertAll(CryptoFeedItemsMapper.mapRemoteToEntity(cryptoFeed))
                     } else {
                         emit(CryptoFeedResult.Success(emptyList()))
                     }
                 }
 
                 is HttpClientResult.Failure -> {
-                    Log.d("loadCryptoFeed", "Failure")
                     when (result.throwable) {
                         is ConnectivityException -> {
                             emit(CryptoFeedResult.Failure(Connectivity()))
                         }
 
                         is InvalidDataException -> {
-                            Log.d("loadCryptoFeed", "InvalidData")
                             emit(CryptoFeedResult.Failure(InvalidData()))
                         }
                     }
