@@ -1,4 +1,4 @@
-package abika.sinau.mycryptofeed.main.factories
+package abika.sinau.mycryptofeed.factories
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import abika.sinau.mycryptofeed.theme.CryptoAppTheme
-import abika.sinau.mycryptofeed.main.factories.navigation.MainAppNavHost
+import abika.sinau.mycryptofeed.factories.navigation.MainAppNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

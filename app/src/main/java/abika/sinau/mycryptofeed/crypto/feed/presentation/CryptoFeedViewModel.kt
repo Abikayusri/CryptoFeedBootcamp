@@ -11,7 +11,9 @@ import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedLoader
 import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedResult
 import abika.sinau.mycryptofeed.crypto.feed.http.usecases.Connectivity
 import abika.sinau.mycryptofeed.crypto.feed.http.usecases.InvalidData
-import abika.sinau.mycryptofeed.main.factories.RemoteCryptoFeedLoaderFactory
+import abika.sinau.mycryptofeed.factories.composite.CryptoFeedLoaderFactory
+import abika.sinau.mycryptofeed.factories.local.LocalCryptoFeedLoaderFactory
+import abika.sinau.mycryptofeed.factories.remote.RemoteCryptoFeedLoaderFactory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -108,6 +110,14 @@ class CryptoFeedViewModel constructor(
             initializer {
                 CryptoFeedViewModel(
                     RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
+
+//                    CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
+//                        primary = CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
+//                            primary = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
+//                            secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+//                        ),
+//                        secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+//                    )
                 )
             }
         }

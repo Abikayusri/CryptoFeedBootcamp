@@ -1,4 +1,4 @@
-package abika.sinau.mycryptofeed.main.factories
+package abika.sinau.mycryptofeed.factories.remote
 
 import abika.sinau.mycryptofeed.frameworks.HttpFactory
 import abika.sinau.mycryptofeed.crypto.feed.http.CryptoFeedService

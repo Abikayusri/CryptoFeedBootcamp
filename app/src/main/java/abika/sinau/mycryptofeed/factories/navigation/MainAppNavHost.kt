@@ -1,4 +1,4 @@
-package abika.sinau.mycryptofeed.main.factories.navigation
+package abika.sinau.mycryptofeed.factories.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
