@@ -1,4 +1,4 @@
-package abika.sinau.mycryptofeed.ui.theme
+package abika.sinau.mycryptofeed.theme
 
 import androidx.compose.ui.graphics.Color
 
