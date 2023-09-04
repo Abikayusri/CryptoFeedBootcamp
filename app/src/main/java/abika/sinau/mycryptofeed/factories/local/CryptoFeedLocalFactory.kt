@@ -1,17 +1,13 @@
 package abika.sinau.mycryptofeed.factories.local
 
-import abika.sinau.mycryptofeed.MyApplication
-import abika.sinau.mycryptofeed.crypto.feed.db.room.CryptoFeedDao
-import abika.sinau.mycryptofeed.crypto.feed.db.room.CryptoFeedDatabase
+import abika.sinau.mycryptofeed.crypto.feed.local.client.CryptoFeedLocalClient
+import abika.sinau.mycryptofeed.crypto.feed.local.client.CryptoFeedLocalClientImpl
+import abika.sinau.mycryptofeed.frameworks.LocalFactory
 
 class CryptoFeedLocalFactory {
     companion object {
-        fun provideApplication(): MyApplication {
-            return MyApplication.instance!!
-        }
-
-        fun createCryptoFeedLocal(): CryptoFeedDao {
-            return CryptoFeedDatabase.getDatabase(provideApplication()).cryptoFeedDao()
+        fun createCryptoFeedLocal(): CryptoFeedLocalClient {
+            return CryptoFeedLocalClientImpl(LocalFactory.getDatabase().cryptoFeedDao())
         }
     }
 }

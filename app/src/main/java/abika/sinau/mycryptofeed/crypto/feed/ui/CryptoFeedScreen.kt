@@ -1,6 +1,10 @@
 package abika.sinau.mycryptofeed.crypto.feed.ui
 
-import android.util.Log
+import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedItem
+import abika.sinau.mycryptofeed.crypto.feed.presentation.CryptoFeedUiState
+import abika.sinau.mycryptofeed.crypto.feed.presentation.CryptoFeedViewModel
+import abika.sinau.mycryptofeed.crypto.feed.ui.components.CryptoFeedList
+import abika.sinau.mycryptofeed.theme.Purple40
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -22,11 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedItem
-import abika.sinau.mycryptofeed.crypto.feed.presentation.CryptoFeedUiState
-import abika.sinau.mycryptofeed.crypto.feed.presentation.CryptoFeedViewModel
-import abika.sinau.mycryptofeed.crypto.feed.ui.components.CryptoFeedList
-import abika.sinau.mycryptofeed.theme.Purple40
 
 @Composable
 fun CryptoFeedRoute(

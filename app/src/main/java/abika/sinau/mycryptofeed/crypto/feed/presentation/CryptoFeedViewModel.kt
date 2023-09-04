@@ -5,7 +5,9 @@ import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedLoader
 import abika.sinau.mycryptofeed.crypto.feed.domain.CryptoFeedResult
 import abika.sinau.mycryptofeed.crypto.feed.http.usecases.Connectivity
 import abika.sinau.mycryptofeed.crypto.feed.http.usecases.InvalidData
+import abika.sinau.mycryptofeed.factories.local.CryptoFeedLocalInsertFactory
 import abika.sinau.mycryptofeed.factories.composite.CryptoFeedLoaderFactory
+import abika.sinau.mycryptofeed.factories.decorator.CryptoFeedLoaderCacheDecorator
 import abika.sinau.mycryptofeed.factories.local.LocalCryptoFeedLoaderFactory
 import abika.sinau.mycryptofeed.factories.remote.RemoteCryptoFeedLoaderFactory
 import androidx.lifecycle.ViewModel
@@ -110,12 +112,20 @@ class CryptoFeedViewModel constructor(
                     // TODO: If not use composite
 //                    RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
 
+//                    CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
+//                        primary = CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
+//                            primary = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
+//                            secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+//                        ),
+//                        secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+//                    )
+
                     CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
-                        primary = CryptoFeedLoaderFactory.createCryptoFeedLoaderCompositeFactory(
-                            primary = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
-                            secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+                        primary = CryptoFeedLoaderCacheDecorator(
+                            decorate = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
+                            cache = CryptoFeedLocalInsertFactory.createLocalCryptoFeedLoader(),
                         ),
-                        secondary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
+                        fallback = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
                     )
                 )
             }

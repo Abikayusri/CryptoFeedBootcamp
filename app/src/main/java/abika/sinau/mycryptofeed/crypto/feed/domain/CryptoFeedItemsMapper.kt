@@ -1,7 +1,7 @@
 package abika.sinau.mycryptofeed.crypto.feed.domain
 
-import abika.sinau.mycryptofeed.crypto.feed.db.entity.CryptoFeedEntity
 import abika.sinau.mycryptofeed.crypto.feed.http.RemoteCryptoFeedItem
+import abika.sinau.mycryptofeed.crypto.feed.local.entity.CryptoFeedEntity
 
 class CryptoFeedItemsMapper {
     companion object {
@@ -31,8 +31,21 @@ class CryptoFeedItemsMapper {
                     name = it.remoteCoinInfo.name.orEmpty(),
                     fullName = it.remoteCoinInfo.fullName.orEmpty(),
                     imageUrl = it.remoteCoinInfo.imageUrl.orEmpty(),
-                    price = it.remoteRaw.usd.price?: 0.0,
-                    changePctDay = it.remoteRaw.usd.changePctDay?: 0F
+                    price = it.remoteRaw.usd.price ?: 0.0,
+                    changePctDay = it.remoteRaw.usd.changePctDay ?: 0F
+                )
+            }
+        }
+
+        fun mapRemoteToLocalEntity(items: List<CryptoFeedItem>): List<CryptoFeedEntity> {
+            return items.map {
+                CryptoFeedEntity(
+                    id = it.coinInfo.id,
+                    name = it.coinInfo.name,
+                    fullName = it.coinInfo.fullName,
+                    imageUrl = it.coinInfo.imageUrl,
+                    price = it.raw.usd.price,
+                    changePctDay = it.raw.usd.changePctDay
                 )
             }
         }

@@ -1,14 +1,11 @@
 package abika.sinau.mycryptofeed
 
+import abika.sinau.mycryptofeed.frameworks.LocalFactory
 import android.app.Application
 
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        instance = this
-    }
-
-    companion object {
-        var instance: MyApplication? = null
+        LocalFactory.application = this
     }
 }

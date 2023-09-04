@@ -7,9 +7,9 @@ class CryptoFeedLoaderFactory {
     companion object {
         fun createCryptoFeedLoaderCompositeFactory(
             primary: CryptoFeedLoader,
-            secondary: CryptoFeedLoader
+            fallback: CryptoFeedLoader
         ): CryptoFeedLoader {
-            return CryptoFeedLoaderComposite(primary, secondary)
+            return CryptoFeedLoaderComposite(primary, fallback)
         }
     }
 }

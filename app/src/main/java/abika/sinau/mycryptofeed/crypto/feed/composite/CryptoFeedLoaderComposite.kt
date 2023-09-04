@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 
 class CryptoFeedLoaderComposite(
     private val primary: CryptoFeedLoader,
-    private val secondary: CryptoFeedLoader
+    private val fallback: CryptoFeedLoader
 ) : CryptoFeedLoader {
     override fun load(): Flow<CryptoFeedResult> {
         return flow {
@@ -17,11 +17,11 @@ class CryptoFeedLoaderComposite(
                     primary.load().collect {
                         when (it) {
                             is CryptoFeedResult.Success -> emit(it)
-                            is CryptoFeedResult.Failure -> emit(secondary.load().first())
+                            is CryptoFeedResult.Failure -> emit(fallback.load().first())
                         }
                     }
                 } catch (e: Exception) {
-                    secondary.load()
+                    fallback.load()
                 }
             }
         }

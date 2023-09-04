@@ -1,10 +1,11 @@
-package abika.sinau.mycryptofeed.crypto.feed.db.room
+package abika.sinau.mycryptofeed.crypto.feed.local.room
 
-import abika.sinau.mycryptofeed.crypto.feed.db.entity.CryptoFeedEntity
+import abika.sinau.mycryptofeed.crypto.feed.local.entity.CryptoFeedEntity
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -13,5 +14,5 @@ interface CryptoFeedDao {
     suspend fun insertAll(cryptoFeed: List<CryptoFeedEntity>)
 
     @Query("SELECT * FROM crypto_feed")
-    suspend fun getAllCryptFeedItems(): List<CryptoFeedEntity>
+    fun getAllCryptFeedItems(): Flow<List<CryptoFeedEntity>>
 }

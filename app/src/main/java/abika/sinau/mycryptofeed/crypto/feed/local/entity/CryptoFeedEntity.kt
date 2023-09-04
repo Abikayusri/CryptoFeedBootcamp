@@ -1,4 +1,4 @@
-package abika.sinau.mycryptofeed.crypto.feed.db.entity
+package abika.sinau.mycryptofeed.crypto.feed.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
